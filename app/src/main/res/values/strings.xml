@@ -1,3 +1,24 @@
 <resources>
+    <!-- Main -->
     <string name="app_name">Fight Keeper</string>
+
+    <!-- Fight -->
+
+    <!-- Actions -->
+    <string name="Attack">Punch</string>
+    <string name="Damage">%d – %d</string>
+    <string name="AttackIconDesc">Attack Action Icon</string>
+    <string name="Defence">Defence</string>
+    <string name="DefenceAmount">%d – %d</string>
+    <string name="DefenceIconDesc">Defence Action Icon</string>
+    <string name="Focus">Focus</string>
+    <string name="FocusMultiplier">x%f</string>
+    <string name="FocusIconDesc">Focus Action Icon</string>
+    <string name="Heal">Heal</string>
+    <string name="HealAmount">%d – %d</string>
+    <string name="HealTurns">Recharging (%d turns)</string>
+    <string name="HealIconDesc">Heal Action Icon</string>
+    <!-- New Game -->
+
+    <string name="NewGame">New Game</string>
 </resources>

@@ -1,18 +1,453 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.fightkeeper.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Main Layout -->
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Fight Layout-->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background_reign" />
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+        <!-- Moves Layout -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Left Actions -->
+            <!-- I need the frame layout to make sure each button has the same width,
+                    the content is centered, and the weight is the same for both sides-->
+            <FrameLayout
+                android:id="@+id/LeftActions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+                    <LinearLayout
+                        android:id="@+id/LeftAttack"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/LeftAttackIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/AttackIconDesc"
+                            android:src="@drawable/icon_attack" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/LeftAttackText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/Attack" />
+
+
+                            <TextView
+                                android:id="@+id/LeftAttackValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/Damage"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LeftDefence"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/LeftDefenceIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/DefenceIconDesc"
+                            android:src="@drawable/icon_defence" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/LeftDefenceText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="8dp"
+                                android:text="@string/Defence" />
+
+
+                            <TextView
+                                android:id="@+id/LeftDefenceValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/DefenceAmount"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LeftFocus"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/LeftFocusIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/FocusIconDesc"
+                            android:src="@drawable/icon_focus" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/LeftFocusText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/Focus" />
+
+
+                            <TextView
+                                android:id="@+id/LeftFocusValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="@string/FocusMultiplier"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LeftHeal"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/LeftHealIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/HealIconDesc"
+                            android:src="@drawable/icon_heal" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/LeftHealText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/Heal" />
+
+
+                            <TextView
+                                android:id="@+id/LeftHealValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/HealAmount"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+            <!-- Actions Separator-->
+
+            <!--suppress CheckTagEmptyBody -->
+            <View
+                android:id="@+id/ActionsSeparator"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"></View>
+
+            <!-- Right Actions-->
+            <FrameLayout
+                android:id="@+id/RightActions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+                    <LinearLayout
+                        android:id="@+id/RightAttack"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/RightAttackIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/AttackIconDesc"
+                            android:src="@drawable/icon_attack" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/RightAttackText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/Attack" />
+
+
+                            <TextView
+                                android:id="@+id/RightAttackValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/Damage"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RightDefence"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/RightDefenceIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/DefenceIconDesc"
+                            android:src="@drawable/icon_defence" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/RightDefenceText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="8dp"
+                                android:text="@string/Defence" />
+
+
+                            <TextView
+                                android:id="@+id/RightDefenceValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/DefenceAmount"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RightFocus"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/RightFocusIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/FocusIconDesc"
+                            android:src="@drawable/icon_focus" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/RightFocusText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/Focus" />
+
+
+                            <TextView
+                                android:id="@+id/RightFocusValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="@string/FocusMultiplier"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RightHeal"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/RightHealIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/HealIconDesc"
+                            android:src="@drawable/icon_heal" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/RightHealText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/Heal" />
+
+
+                            <TextView
+                                android:id="@+id/RightHealValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:paddingEnd="8dp"
+                                android:paddingStart="12dp"
+                                android:text="@string/HealAmount"
+                                android:textAlignment="viewEnd" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+        <!-- Reset Layout -->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="32dp"
+            android:text="@string/NewGame"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>
