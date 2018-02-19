@@ -1,9 +1,11 @@
 <resources>
     <!-- Main -->
     <string name="app_name">Fight Keeper</string>
-
     <!-- Fight -->
-
+    <string name="BackDesc">Background Fight Image</string>
+    <string name="FighterDesc">One of the fighter images</string>
+    <string name="Health">%d/%d</string>
+    <string name="MonsterName">Monster</string>
     <!-- Actions -->
     <string name="Attack">Punch</string>
     <string name="Damage">%d – %d</string>
@@ -19,6 +21,5 @@
     <string name="HealTurns">Recharging (%d turns)</string>
     <string name="HealIconDesc">Heal Action Icon</string>
     <!-- New Game -->
-
     <string name="NewGame">New Game</string>
 </resources>

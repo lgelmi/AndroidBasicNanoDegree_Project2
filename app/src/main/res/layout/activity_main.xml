@@ -15,19 +15,160 @@
         <!-- Fight Layout-->
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Background -->
+
             <HorizontalScrollView
+                android:id="@+id/FightBackground"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:contentDescription="@string/BackDesc"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/background_reign" />
+                    android:src="@drawable/background_desert" />
+
             </HorizontalScrollView>
+
+            <!-- Characters-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/FightBackground"
+                android:layout_alignTop="@+id/FightBackground"
+                android:layout_marginBottom="50dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <!-- Left PG -->
+                <!-- I need the frame layout to make sure each button has the same width,
+                        the content is centered, and the weight is the same for both sides-->
+                <FrameLayout
+                    android:id="@+id/LeftFight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical"
+                        tools:ignore="UselessParent">
+
+                        <TextView
+                            android:id="@+id/LeftPgName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/LeftHealthText"
+                            android:text="@string/MonsterName"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/LeftHealthText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/LeftHealtBar"
+                            android:layout_alignEnd="@+id/LeftHealtBar"
+                            android:layout_alignStart="@+id/LeftHealtBar"
+                            android:text="@string/Health"
+                            android:textAlignment="center" />
+
+                        <ProgressBar
+                            android:id="@+id/LeftHealtBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/LeftPG"
+                            android:layout_alignEnd="@+id/LeftPG"
+                            android:layout_alignStart="@+id/LeftPG"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginStart="30dp"
+                            android:progress="50" />
+
+                        <ImageView
+                            android:id="@+id/LeftPG"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/FighterDesc"
+                            android:src="@drawable/pg_goblin" />
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <!-- Right PG -->
+                <FrameLayout
+                    android:id="@+id/RightFight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical"
+                        tools:ignore="UselessParent">
+
+                        <TextView
+                            android:id="@+id/RightPgName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/RightHealthText"
+                            android:text="@string/MonsterName"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/RightHealthText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/RightHealtBar"
+                            android:layout_alignEnd="@+id/RightHealtBar"
+                            android:layout_alignStart="@+id/RightHealtBar"
+                            android:text="@string/Health"
+                            android:textAlignment="center" />
+
+                        <ProgressBar
+                            android:id="@+id/RightHealtBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/RightPG"
+                            android:layout_alignEnd="@+id/RightPG"
+                            android:layout_alignStart="@+id/RightPG"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginStart="30dp"
+                            android:progress="50" />
+
+                        <ImageView
+                            android:id="@+id/RightPG"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentStart="true"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/FighterDesc"
+                            android:scaleX="-1"
+                            android:src="@drawable/pg_goblin" />
+
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -230,20 +371,6 @@
 
             </FrameLayout>
 
-
-            <!-- Actions Separator-->
-
-            <!--suppress CheckTagEmptyBody -->
-            <View
-                android:id="@+id/ActionsSeparator"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"></View>
-
             <!-- Right Actions-->
             <FrameLayout
                 android:id="@+id/RightActions"
@@ -255,9 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="8dp"
                     android:orientation="vertical"
                     tools:ignore="UselessParent">
 
@@ -435,7 +560,6 @@
 
         </LinearLayout>
 
-
         <!-- Reset Layout -->
 
         <Button
@@ -446,8 +570,6 @@
             android:text="@string/NewGame"
             android:textAlignment="center" />
 
-
     </LinearLayout>
 
-
-</ScrollView>
+</ScrollView><!-- TODO Note: Scroll at each turn, disable, initial random, weighted chance for PG -->
