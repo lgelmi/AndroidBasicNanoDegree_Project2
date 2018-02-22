@@ -59,7 +59,6 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
                         android:orientation="vertical"
                         tools:ignore="UselessParent">
 
@@ -96,12 +95,12 @@
                         <ImageView
                             android:id="@+id/LeftPG"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="170dp"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/FighterDesc"
-                            android:src="@drawable/pg_goblin" />
+                            android:src="@drawable/pg_atrocious_killer" />
 
                     </RelativeLayout>
 
@@ -118,15 +117,16 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
                         android:orientation="vertical"
                         tools:ignore="UselessParent">
 
                         <TextView
                             android:id="@+id/RightPgName"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_above="@+id/RightHealthText"
+                            android:layout_alignEnd="@+id/RightHealtBar"
+                            android:layout_alignStart="@+id/RightHealtBar"
                             android:text="@string/MonsterName"
                             android:textAlignment="center" />
 
@@ -155,13 +155,13 @@
                         <ImageView
                             android:id="@+id/RightPG"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="120dp"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentStart="true"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/FighterDesc"
                             android:scaleX="-1"
-                            android:src="@drawable/pg_goblin" />
+                            android:src="@drawable/pg_knight" />
 
 
                     </RelativeLayout>
@@ -219,7 +219,7 @@
 
                             <TextView
                                 android:id="@+id/LeftAttackText"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:lines="1"
                                 android:paddingLeft="8dp"
@@ -406,7 +406,7 @@
 
                             <TextView
                                 android:id="@+id/RightAttackText"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:lines="1"
                                 android:paddingLeft="8dp"
@@ -568,7 +568,8 @@
             android:layout_gravity="center"
             android:layout_margin="32dp"
             android:text="@string/NewGame"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:onClick="newGameView"/>
 
     </LinearLayout>
 
