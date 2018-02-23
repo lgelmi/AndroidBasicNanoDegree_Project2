@@ -27,9 +27,9 @@
                 android:fillViewport="true">
 
                 <ImageView
+                    android:id="@+id/BackgroundImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:contentDescription="@string/BackDesc"
                     android:scaleType="centerCrop"
                     android:src="@drawable/background_desert" />
@@ -62,11 +62,14 @@
                         android:orientation="vertical"
                         tools:ignore="UselessParent">
 
+
                         <TextView
                             android:id="@+id/LeftPgName"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_above="@+id/LeftHealthText"
+                            android:layout_alignEnd="@+id/LeftHealtBar"
+                            android:layout_alignStart="@+id/LeftHealtBar"
                             android:text="@string/MonsterName"
                             android:textAlignment="center" />
 
@@ -95,7 +98,7 @@
                         <ImageView
                             android:id="@+id/LeftPG"
                             android:layout_width="wrap_content"
-                            android:layout_height="170dp"
+                            android:layout_height="160dp"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
                             android:adjustViewBounds="true"
@@ -203,7 +206,9 @@
                         android:id="@+id/LeftAttack"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="attackAction"
+                        android:tag="left">
 
                         <ImageView
                             android:id="@+id/LeftAttackIcon"
@@ -231,11 +236,11 @@
                                 android:id="@+id/LeftAttackValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
                                 android:paddingEnd="8dp"
                                 android:paddingStart="12dp"
-                                android:text="@string/Damage"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/Damage" />
 
                         </LinearLayout>
 
@@ -245,7 +250,9 @@
                         android:id="@+id/LeftDefence"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="defenceAction"
+                        android:tag="left">
 
                         <ImageView
                             android:id="@+id/LeftDefenceIcon"
@@ -273,11 +280,11 @@
                                 android:id="@+id/LeftDefenceValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
                                 android:paddingEnd="8dp"
                                 android:paddingStart="12dp"
-                                android:text="@string/DefenceAmount"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/DefenceAmount" />
 
                         </LinearLayout>
 
@@ -287,7 +294,9 @@
                         android:id="@+id/LeftFocus"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="focusAction"
+                        android:tag="left">
 
                         <ImageView
                             android:id="@+id/LeftFocusIcon"
@@ -314,11 +323,11 @@
 
                             <TextView
                                 android:id="@+id/LeftFocusValue"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
-                                android:text="@string/FocusMultiplier"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/FocusMultiplier" />
 
                         </LinearLayout>
 
@@ -328,7 +337,9 @@
                         android:id="@+id/LeftHeal"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="healAction"
+                        android:tag="left">
 
                         <ImageView
                             android:id="@+id/LeftHealIcon"
@@ -357,11 +368,11 @@
                                 android:id="@+id/LeftHealValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
                                 android:paddingEnd="8dp"
                                 android:paddingStart="12dp"
-                                android:text="@string/HealAmount"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/HealAmount" />
 
                         </LinearLayout>
 
@@ -390,7 +401,9 @@
                         android:id="@+id/RightAttack"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="attackAction"
+                        android:tag="right">
 
                         <ImageView
                             android:id="@+id/RightAttackIcon"
@@ -418,11 +431,11 @@
                                 android:id="@+id/RightAttackValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
                                 android:paddingEnd="8dp"
                                 android:paddingStart="12dp"
-                                android:text="@string/Damage"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/Damage" />
 
                         </LinearLayout>
 
@@ -432,7 +445,9 @@
                         android:id="@+id/RightDefence"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="defenceAction"
+                        android:tag="right">
 
                         <ImageView
                             android:id="@+id/RightDefenceIcon"
@@ -460,11 +475,11 @@
                                 android:id="@+id/RightDefenceValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
                                 android:paddingEnd="8dp"
                                 android:paddingStart="12dp"
-                                android:text="@string/DefenceAmount"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/DefenceAmount" />
 
                         </LinearLayout>
 
@@ -474,7 +489,9 @@
                         android:id="@+id/RightFocus"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="focusAction"
+                        android:tag="right">
 
                         <ImageView
                             android:id="@+id/RightFocusIcon"
@@ -501,11 +518,11 @@
 
                             <TextView
                                 android:id="@+id/RightFocusValue"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
-                                android:text="@string/FocusMultiplier"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/FocusMultiplier" />
 
                         </LinearLayout>
 
@@ -515,7 +532,9 @@
                         android:id="@+id/RightHeal"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="healAction"
+                        android:tag="right">
 
                         <ImageView
                             android:id="@+id/RightHealIcon"
@@ -544,11 +563,11 @@
                                 android:id="@+id/RightHealValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="end"
                                 android:lines="1"
                                 android:paddingEnd="8dp"
                                 android:paddingStart="12dp"
-                                android:text="@string/HealAmount"
-                                android:textAlignment="viewEnd" />
+                                android:text="@string/HealAmount" />
 
                         </LinearLayout>
 
@@ -567,9 +586,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="32dp"
+            android:onClick="newGameView"
             android:text="@string/NewGame"
-            android:textAlignment="center"
-            android:onClick="newGameView"/>
+            android:textAlignment="center" />
 
     </LinearLayout>
 

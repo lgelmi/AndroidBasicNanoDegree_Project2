@@ -1,9 +1,12 @@
 package com.example.android.fightkeeper;
 
 import android.content.Context;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.Random;
 
 /**
  * Fighter definitions.
@@ -27,7 +30,7 @@ abstract class Fighter {
     // General
     private sideViews views;
 
-    public Context context;
+    private Context context;
 
     abstract String name();
 
@@ -43,65 +46,97 @@ abstract class Fighter {
 
     abstract int minDamage();
 
-    public int getMinDamage() {
+    private int getMinDamage() {
         return minDamage() * (focusAmount + 1);
     }
 
     abstract int maxDamage();
 
-    public int getMaxDamage() {
+    private int getMaxDamage() {
         return maxDamage() * (focusAmount + 1);
+    }
+
+    private int currentDamage;
+
+    public int getCurrentDamage() {
+        return currentDamage;
+    }
+
+    private void setCurrentDamage(int damage) {
+        /* When setting the damage, also display it */
+        currentDamage = damage;
+        views.damageText.setText(Html.fromHtml(context.getResources().getString(R.string.ActualDamage, damage)));
     }
 
     abstract int minDefence();
 
-    public int getMinDefence() {
+    private int getMinDefence() {
         return minDefence() * (focusAmount + 1);
     }
 
     abstract int maxDefence();
 
-    public int getMaxDefence() {
+    private int getMaxDefence() {
         return maxDefence() * (focusAmount + 1);
+    }
+
+    private int currentDefence;
+
+    int getCurrentDefence() {
+        return currentDefence;
+    }
+
+    private void setCurrentDefence(int defence) {
+        /* When setting the damage, also display it */
+        currentDefence = defence;
+        views.defenceText.setText(Html.fromHtml(context.getResources().getString(R.string.ActualDefence, defence)));
     }
 
     abstract double focusBonus();
 
-    protected int focusAmount = 0;
+    private int focusAmount = 0;
 
     abstract int minHeal();
 
-    public int getMinHeal() {
+    private int getMinHeal() {
         return minHeal() * (focusAmount + 1);
     }
 
     abstract int maxHeal();
 
-    public int getMaxHeal() {
+    private int getMaxHeal() {
         return maxHeal() * (focusAmount + 1);
     }
 
     abstract int healChargeTurns();
 
-    int healTurnsLeft;
+    private int healTurnsLeft;
 
-    public Fighter(Context context, sideViews views) {
+    Fighter(Context context, sideViews views) {
         // Initialize the Fighter dynamic stats
         this.context = context;
         this.views = views;
-        currentHealth = maxHealthPoints();
-        healTurnsLeft = 0;
-        focusAmount = 0;
         this.views.image.setImageResource(imageId());
         this.views.image.getLayoutParams().height = (int) context.getResources().getDisplayMetrics().density * height();
         this.views.name.setText(name());
+        currentHealth = maxHealthPoints();
+        healTurnsLeft = 0;
+        focusAmount = 0;
         setCurrentHealth(maxHealthPoints());
+        newTurn();
+    }
+
+    public void newTurn() {
+        currentDamage = 0;
+        currentDefence = 0;
+        if (healTurnsLeft > 0)
+            healTurnsLeft--;
         updateVisibleStats();
     }
 
-    public void setCurrentHealth(int newHealth) {
-        if (newHealth > this.maxHealthPoints())
-            newHealth = 0;
+    private void setCurrentHealth(int newHealth) {
+        if (newHealth > maxHealthPoints())
+            newHealth = maxHealthPoints();
         else if (newHealth < 0)
             newHealth = 0;
         currentHealth = newHealth;
@@ -109,18 +144,73 @@ abstract class Fighter {
         views.healthBar.setProgress(currentHealth * 100 / maxHealthPoints());
     }
 
-    public void updateVisibleStats() {
+    private void updateVisibleStats() {
         views.damageText.setText(context.getResources().getString(R.string.Damage, getMinDamage(), getMaxDamage()));
         views.defenceText.setText(context.getResources().getString(R.string.DefenceAmount, getMinDefence(), getMaxDefence()));
         views.focusText.setText(context.getResources().getString(R.string.FocusMultiplier, focusBonus()));
         if (healTurnsLeft == 0)
             views.healText.setText(context.getResources().getString(R.string.HealAmount, getMinHeal(), getMaxHeal()));
-        else
-            views.healText.setText(context.getResources().getString(R.string.HealTurns, healTurnsLeft));
+        else {
+            views.healText.setText(Html.fromHtml(context.getResources().getString(R.string.HealTurns, healTurnsLeft)));
+        }
     }
 
+    void sufferDamage(int damage){
+        /* Handles the damage */
+        if (damage - currentDefence < 0)
+            damage = 0;
+        else
+            damage -= currentDefence;
+        setCurrentHealth(currentHealth - damage );
+    }
 
-    public boolean isDead() {
+    int attack() {
+        /* Generates a random attack value and stores it in the current attack. Consume focus.
+           Also returns it.
+         */
+        Random rand = new Random();
+        int damage = rand.nextInt(getMaxDamage() - getMinDamage() + 1) + getMinDamage();
+        focusAmount = 0;
+        updateVisibleStats();
+        setCurrentDamage(damage);
+        return damage;
+    }
+
+    int defence() {
+        /* Generates a random defence value and stores it in currentDefence. Consume focus.
+           Also returns it.
+         */
+        Random rand = new Random();
+        int defence = rand.nextInt(getMaxDefence() - getMinDefence() + 1) + getMinDefence();
+        focusAmount = 0;
+        updateVisibleStats();
+        setCurrentDefence(defence);
+        return defence;
+    }
+
+    int focus() {
+        /* Adds one to the focus charges.
+        *  Returns the current value */
+        focusAmount++;
+        updateVisibleStats();
+        return focusAmount;
+    }
+
+    int heal() {
+        /* Generates a random heal value and update the health points. Consume focus.
+           Starts the countdown.
+           Also returns it.
+         */
+        Random rand = new Random();
+        int heal = rand.nextInt(getMaxHeal() - getMinHeal() + 1) + getMinHeal();
+        focusAmount = 0;
+        healTurnsLeft = healChargeTurns();
+        updateVisibleStats();
+        setCurrentHealth(currentHealth + heal);
+        return heal;
+    }
+
+    boolean isDead() {
         return currentHealth == 0;
     }
 
@@ -129,7 +219,7 @@ abstract class Fighter {
 class Goblin extends Fighter {
 
 
-    public Goblin(Context context, sideViews views) {
+    Goblin(Context context, sideViews views) {
         super(context, views);
     }
 
@@ -140,7 +230,7 @@ class Goblin extends Fighter {
 
     @Override
     int height() {
-        return 90;
+        return 80;
     }
 
     @Override
@@ -180,12 +270,12 @@ class Goblin extends Fighter {
 
     @Override
     int minHeal() {
-        return 2;
+        return 4;
     }
 
     @Override
     int maxHeal() {
-        return 4;
+        return 8;
     }
 
     @Override
@@ -208,7 +298,7 @@ class RedGoblin extends Fighter {
 
     @Override
     int height() {
-        return 90;
+        return 70;
     }
 
     @Override
@@ -248,12 +338,12 @@ class RedGoblin extends Fighter {
 
     @Override
     int minHeal() {
-        return 3;
+        return 4;
     }
 
     @Override
     int maxHeal() {
-        return 6;
+        return 8;
     }
 
     @Override
@@ -316,12 +406,12 @@ class Knight extends Fighter {
 
     @Override
     int minHeal() {
-        return 4;
+        return 3;
     }
 
     @Override
     int maxHeal() {
-        return 8;
+        return 16;
     }
 
     @Override
@@ -343,7 +433,7 @@ class AtrociousKiller extends Fighter {
 
     @Override
     int height() {
-        return 170;
+        return 150;
     }
 
     @Override
@@ -383,7 +473,7 @@ class AtrociousKiller extends Fighter {
 
     @Override
     int minHeal() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -450,12 +540,12 @@ class DarkCreature extends Fighter {
 
     @Override
     int minHeal() {
-        return 2;
+        return 5;
     }
 
     @Override
     int maxHeal() {
-        return 4;
+        return 15;
     }
 
     @Override
@@ -477,7 +567,7 @@ class Jotun extends Fighter {
 
     @Override
     int height() {
-        return 220;
+        return 200;
     }
 
     @Override
@@ -522,7 +612,7 @@ class Jotun extends Fighter {
 
     @Override
     int maxHeal() {
-        return 6;
+        return 8;
     }
 
     @Override
@@ -544,7 +634,7 @@ class Kraken extends Fighter {
 
     @Override
     int height() {
-        return 200;
+        return 190;
     }
 
     @Override
@@ -584,12 +674,12 @@ class Kraken extends Fighter {
 
     @Override
     int minHeal() {
-        return 4;
+        return 6;
     }
 
     @Override
     int maxHeal() {
-        return 8;
+        return 12;
     }
 
     @Override
