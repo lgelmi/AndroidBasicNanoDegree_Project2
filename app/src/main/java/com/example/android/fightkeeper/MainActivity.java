@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             defenceText = findViewById(R.id.LeftDefenceValue);
             focusText = findViewById(R.id.LeftFocusValue);
             healText = findViewById(R.id.LeftHealValue);
+            healButton = findViewById(R.id.LeftHeal);
         }
     }
 
@@ -44,14 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
         rightViews() {
             super();
-            this.healthBar = findViewById(R.id.RightHealtBar);
-            this.healthText = findViewById(R.id.RightHealthText);
-            this.image = findViewById(R.id.RightPG);
-            this.name = findViewById(R.id.RightPgName);
-            this.damageText = findViewById(R.id.RightAttackValue);
-            this.defenceText = findViewById(R.id.RightDefenceValue);
-            this.focusText = findViewById(R.id.RightFocusValue);
-            this.healText = findViewById(R.id.RightHealValue);
+            healthBar = findViewById(R.id.RightHealtBar);
+            healthText = findViewById(R.id.RightHealthText);
+            image = findViewById(R.id.RightPG);
+            name = findViewById(R.id.RightPgName);
+            damageText = findViewById(R.id.RightAttackValue);
+            defenceText = findViewById(R.id.RightDefenceValue);
+            focusText = findViewById(R.id.RightFocusValue);
+            healText = findViewById(R.id.RightHealValue);
+            healButton = findViewById(R.id.RightHeal);
         }
     }
 
@@ -174,10 +176,11 @@ public class MainActivity extends AppCompatActivity {
                 newTurn(false);
                 break;
         }
+
     }
 
     // Adapted from https://stackoverflow.com/a/28509431/8995069
-    private static void setViewAndChildrenEnabled(View view, boolean enabled, int depth) {
+    public static void setViewAndChildrenEnabled(View view, boolean enabled, int depth) {
         view.setEnabled(enabled);
         if (view instanceof ViewGroup && depth > 0) {
             ViewGroup viewGroup = (ViewGroup) view;

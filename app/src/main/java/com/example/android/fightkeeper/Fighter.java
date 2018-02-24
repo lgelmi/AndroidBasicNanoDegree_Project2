@@ -2,7 +2,10 @@ package com.example.android.fightkeeper;
 
 import android.content.Context;
 import android.text.Html;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,6 +17,7 @@ import java.util.Random;
  * The abstract class describing the fighter behaviour is defined as well as other fighter specific treat.
  */
 
+
 class sideViews {
     ProgressBar healthBar;
     TextView healthText;
@@ -23,6 +27,7 @@ class sideViews {
     TextView defenceText;
     TextView focusText;
     TextView healText;
+    LinearLayout healButton;
 }
 
 abstract class Fighter {
@@ -47,13 +52,13 @@ abstract class Fighter {
     abstract int minDamage();
 
     private int getMinDamage() {
-        return minDamage() * (focusAmount + 1);
+        return (int) (minDamage() * Math.pow(focusBonus(), focusAmount));
     }
 
     abstract int maxDamage();
 
     private int getMaxDamage() {
-        return maxDamage() * (focusAmount + 1);
+        return (int) (maxDamage() * Math.pow(focusBonus(), focusAmount));
     }
 
     private int currentDamage;
@@ -71,13 +76,13 @@ abstract class Fighter {
     abstract int minDefence();
 
     private int getMinDefence() {
-        return minDefence() * (focusAmount + 1);
+        return (int) (minDefence() * Math.pow(focusBonus(), focusAmount));
     }
 
     abstract int maxDefence();
 
     private int getMaxDefence() {
-        return maxDefence() * (focusAmount + 1);
+        return (int) (maxDefence() * Math.pow(focusBonus(), focusAmount));
     }
 
     private int currentDefence;
@@ -99,13 +104,13 @@ abstract class Fighter {
     abstract int minHeal();
 
     private int getMinHeal() {
-        return minHeal() * (focusAmount + 1);
+        return (int) (minHeal() * Math.pow(focusBonus(), focusAmount));
     }
 
     abstract int maxHeal();
 
     private int getMaxHeal() {
-        return maxHeal() * (focusAmount + 1);
+        return (int) (maxHeal() * Math.pow(focusBonus(), focusAmount));
     }
 
     abstract int healChargeTurns();
@@ -144,24 +149,38 @@ abstract class Fighter {
         views.healthBar.setProgress(currentHealth * 100 / maxHealthPoints());
     }
 
+    // Adapted from https://stackoverflow.com/a/28509431/8995069 I'm lazy so I want create a "common" method file and just duplicate it
+    private static void setViewAndChildrenEnabled(View view, boolean enabled, int depth) {
+        view.setEnabled(enabled);
+        if (view instanceof ViewGroup && depth > 0) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                setViewAndChildrenEnabled(child, enabled, depth - 1);
+            }
+        }
+    }
+
     private void updateVisibleStats() {
         views.damageText.setText(context.getResources().getString(R.string.Damage, getMinDamage(), getMaxDamage()));
         views.defenceText.setText(context.getResources().getString(R.string.DefenceAmount, getMinDefence(), getMaxDefence()));
         views.focusText.setText(context.getResources().getString(R.string.FocusMultiplier, focusBonus()));
-        if (healTurnsLeft == 0)
+        if (healTurnsLeft == 0) {
+            setViewAndChildrenEnabled(views.healButton, true, 2);
             views.healText.setText(context.getResources().getString(R.string.HealAmount, getMinHeal(), getMaxHeal()));
-        else {
+        } else {
+            setViewAndChildrenEnabled(views.healButton, false, 2);
             views.healText.setText(Html.fromHtml(context.getResources().getString(R.string.HealTurns, healTurnsLeft)));
         }
     }
 
-    void sufferDamage(int damage){
+    void sufferDamage(int damage) {
         /* Handles the damage */
         if (damage - currentDefence < 0)
             damage = 0;
         else
             damage -= currentDefence;
-        setCurrentHealth(currentHealth - damage );
+        setCurrentHealth(currentHealth - damage);
     }
 
     int attack() {
@@ -602,7 +621,7 @@ class Jotun extends Fighter {
 
     @Override
     double focusBonus() {
-        return 3;
+        return 2.5;
     }
 
     @Override
